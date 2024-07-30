@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Labology - Registration Login</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    {% load static %}
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Red+Rose:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- Spinner End -->
+
+        <!-- Brand Start -->
+        <div class="container-fluid bg-primary text-white pt-4 pb-5 d-none d-lg-flex" id="color-brand">
+            <div class="container pb-2">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex">
+                        <i class="bi bi-telephone-inbound fs-2"></i>
+                        <div class="ms-3">
+                            <h5 class="text-white mb-0">Call Now</h5>
+                            <span>+012 345 6789</span>
+                        </div>
+                    </div>
+                    <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a>
+                    <div class="d-flex">
+                        <i class="bi bi-envelope fs-2"></i>
+                        <div class="ms-3">
+                            <h5 class="text-white mb-0">Mail Now</h5>
+                            <a href="mailto:info@labology.com"><span class="text-light">info@labology.com</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Brand End -->
+
+
+        <!-- Navbar Start -->
+        <div class="container-fluid sticky-top">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white py-lg-0 px-lg-3">
+                    <a href="index.html" class="navbar-brand d-lg-none">
+                        <h1 class="text-primary m-0">Lab<span class="text-dark">sky</span></h1>
+                    </a>
+                    <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav">
+                            <a href="index.html" class="nav-item nav-link">Home</a>
+                            <a href="about.html" class="nav-item nav-link active">About</a>
+                            <a href="login.html" class="nav-item nav-link">Login</a>
+                        </div>
+                    </div>
+                    <div class="ms-auto d-none d-lg-flex">
+                        <a class="btn btn-sm-square btn-primary ms-2" id="color-brand" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand" ><i class="fab fa-youtube"></i></a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar End -->
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5 mt-4">
+            <h1 class="display-2 text-white mb-3 animated slideInDown">Regestration / Login</h1>
+
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Appointment Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row g-5">
+
+
+            <!-- Login Form -->
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <h2 class="mb-6">Login</h2>
+                <form action="" method="post">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="login-email" placeholder="Your Email">
+                            <label for="login-email">Your Email</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="login-password" placeholder="Password">
+                            <label for="login-password">Password</label>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button class="btn btn-primary w-100 py-3" type="submit">Login</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.7s">
+                <h2 class="mb-4">Register</h2>
+                <form action="" method="post">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="register-name" placeholder="Your Name">
+                            <label for="register-name">Your Name</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="register-email" placeholder="Your Email">
+                            <label for="register-email">Your Email</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="register-password" placeholder="Password">
+                            <label for="register-password">Password</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="register-confirm-password" placeholder="Confirm Password">
+                            <label for="register-confirm-password">Confirm Password</label>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button class="btn btn-primary w-100 py-3" type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Appointment End -->
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-white-50 py-5">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="text-white mb-4">Get In Touch</h5>
+                        <p class="mb-4 text-light">123 Street, New York, USA</p>
+                        <p class="mb-4 text-light">+012 345 6789</p>
+                        <p class="mb-4"><a href="mailto:info@labology.com"><span class="text-light">info@labology.com</span></a></p>
+                        <div class="d-flex">
+                            <a class="btn btn-outline-light btn-square me-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-square me-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-square me-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-outline-light btn-square" href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <h5 class="text-white mb-4">Quick Links</h5>
+                        <a class="btn btn-link text-white-50" href="#">About</a>
+                        <a class="btn btn-link text-white-50" href="#">Services</a>
+                        <a class="btn btn-link text-white-50" href="#">Contact</a>
+                        <a class="btn btn-link text-white-50" href="#">Privacy Policy</a>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <h5 class="text-white mb-4">Newsletter</h5>
+                        <p class="mb-4">Sign up for our newsletter to get the latest updates</p>
+                        <div class="position-relative mx-auto" style="max-width: 400px;">
+                            <input class="form-control border-light rounded-pill ps-4 pe-5" type="text" placeholder="Your email">
+                            <button type="button" class="btn btn-primary  btn-sm rounded-pill position-absolute top-0 end-0 mt-1 me-2">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+    
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top color-brand" id="color-brand"><i class="bi bi-arrow-up"></i></a>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Template JavaScript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
