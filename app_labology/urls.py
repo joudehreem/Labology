@@ -12,4 +12,3 @@ urlpatterns = [
 ]
 
 
-#logo - error{{sweet alert}}- footer in main only and about
