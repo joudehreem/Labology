@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <title>Labology - About</title>
+    <title>Labology - Tests Information</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
     {% load static %}
 
     <!-- Favicon -->
@@ -29,15 +27,13 @@
 </head>
 
 <body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- Spinner End -->
 
-    <body>
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
-        </div>
-        <!-- Spinner End -->
-    
-    
         <!-- Brand Start -->
         <div class="container-fluid bg-primary text-white pt-4 pb-5 d-none d-lg-flex" id="color-brand">
             <div class="container pb-2">
@@ -61,7 +57,8 @@
             </div>
         </div>
         <!-- Brand End -->
-    
+
+
         <!-- Navbar Start -->
         <div class="container-fluid sticky-top">
             <div class="container">
@@ -89,115 +86,51 @@
             </div>
         </div>
         <!-- Navbar End -->
-    
-        <!-- Page Header Start -->
-        <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container text-center py-5 mt-4">
-                <h1 class="display-2 text-white mb-3 animated slideInDown">About Us</h1>
-            </div>
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-4 mt-4">
+            <h1 class="display-2 text-white mb-3 animated slideInDown">Tests Information</h1>
+
         </div>
-        <!-- Page Header End -->
-    
-        <!-- About Start -->
-        <div class="container-fluid py-5">
-            <div class="container">
-                <div class="row g-5">
-                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                        <div class="row g-0">
-                            <div class="col-6">
-                                <img class="img-fluid" src="{%static 'img/about-1.jpg' %}" alt="About Image 1">
-                            </div>
-                            <div class="col-6">
-                                <img class="img-fluid" src="{%static 'img/about-2.jpg' %}" alt="About Image 2">
-                            </div>
-                            <div class="col-6">
-                                <img class="img-fluid" src="{%static 'img/about-3.jpg' %}" alt="About Image 3">
-                            </div>
-                            <div class="col-6">
-                                <div class="bg-primary w-100 h-100 mt-n5 ms-n5 d-flex flex-column align-items-center justify-content-center">
-                                    <div class="icon-box-light">
-                                        <i class="bi bi-award text-dark"></i>
-                                    </div>
-                                    <h1 class="display-1 text-white mb-0" >By</h1>
-                                    <small class="fs-5 text-white">Reem Joudeh</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                        <h1 class="display-6 mb-4">Labology</h1>
-                        <p class="mb-4">Labology is a website for Laboratory Management Systems that aims to improve the workflow between lab technicians and doctors. It efficiently manages laboratory tests, tracks patient results, and ensures communication between medical providers through its essential features: The dashboard provides a record of all tests and overall lab performance, which can be accessed in two ways from the doctor's or lab technician's side. Result Management supports the recording, verification, and reporting of test results and uploading them to the system. Patient management tracks patient information, such as test records, and ensures comprehensive and up-to-date profiles. Labology's integrated strategy increases operational efficiency and improves communication between healthcare providers.
-                        </p>
-                        <div class="row g-4 g-sm-5 justify-content-center">
-                            <div class="col-sm-6">
-                                <div class="about-fact btn-square flex-column rounded-circle bg-primary ms-sm-auto">
-                                    <p class="text-white mb-0">Awards Winning</p>
-                                    <h1 class="text-white mb-0" data-toggle="counter-up">9999</h1>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 text-start">
-                                <div class="about-fact btn-square flex-column rounded-circle bg-secondary me-sm-auto">
-                                    <p class="text-white mb-0">Complete Cases</p>
-                                    <h1 class="text-white mb-0" data-toggle="counter-up">9999</h1>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="about-fact mt-n130 btn-square flex-column rounded-circle bg-dark mx-sm-auto">
-                                    <p class="text-white mb-0">Happy Clients</p>
-                                    <h1 class="text-white mb-0" data-toggle="counter-up">9999</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
-        
-        <div class="container-fluid py-5">
-            <div class="container">
-                <div class="row g-0 feature-row">
-                    <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                        <div class="feature-item border h-100 p-5">
-                            <div class="icon-box-primary mb-4">
-                                <i class="bi bi-award text-dark"></i>
-                            </div>
-                            <h5 class="mb-3">Dashboard</h5>
-                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
-                        <div class="feature-item border h-100 p-5">
-                            <div class="icon-box-primary mb-4">
-                                <i class="bi bi-people text-dark"></i>
-                            </div>
-                            <h5 class="mb-3">Users</h5>
-                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
-                        <div class="feature-item border h-100 p-5">
-                            <div class="icon-box-primary mb-4">
-                                <i class="bi bi-cash-coin text-dark"></i>
-                            </div>
-                            <h5 class="mb-3">Fair Prices</h5>
-                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
-                        <div class="feature-item border h-100 p-5">
-                            <div class="icon-box-primary mb-4">
-                                <i class="bi bi-headphones text-dark"></i>
-                            </div>
-                            <h5 class="mb-3">24/7 Support</h5>
-                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tellus augue.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Features End -->
-        
+    </div>
+    <!-- Page Header End -->
+
+<!-- Test Information Table -->
+<div class="container my-5 text-center">
+    <h2 class="mb-4">Test Information</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="table" id="color-brand">
+                <tr class="text-light">
+                    <th scope="col">Test ID</th>
+                    <th scope="col">Type of Test</th>
+                    <th scope="col">Test Date</th>
+                    <th scope="col">Patient Name</th>
+                    <th scope="col">Patient Phone</th>
+                    <th scope="col">Patient ID</th>
+                    <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Row -->
+                <tr>
+                    <td>001</td>
+                    <td>Blood Test</td>
+                    <td>2024-07-25</td>
+                    <td>Reem Joudeh</td>
+                    <td>000000000</td>
+                    <td>123456</td>
+                    <td>Results pending</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 py-5" id="color-brand">
             <div class="container">
@@ -237,7 +170,6 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top color-brand" id="color-brand"><i class="bi bi-arrow-up"></i></a>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -95,80 +95,114 @@
         </div>
     </div>
     <!-- Page Header End -->
-
-    <!-- Appointment Start -->
+<!-- Form Start -->
 <div class="container-fluid py-5">
-    <div class="container">
+    <div class="container form-container">
         <div class="row g-5">
-
-
-            <!-- Login Form -->
-            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                <h2 class="mb-6">Login</h2>
-                <form action="" method="post">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="login-email" placeholder="Your Email">
-                            <label for="login-email">Your Email</label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="login-password" placeholder="Password">
-                            <label for="login-password">Password</label>
-                        </div>
-                    </div>
-                    <div class="col-12 text-center">
-                        <button class="btn btn-primary w-100 py-3" type="submit">Login</button>
-                    </div>
-                </div>
-                </form>
-            </div>
 
             <!-- Registration Form -->
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.7s">
                 <h2 class="mb-4">Register</h2>
                 <form action="" method="post">
-                <div class="row g-3">
-                    <div class="col-sm-6">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="register-name" placeholder="Your Name">
-                            <label for="register-name">Your Name</label>
+                    <div class="row g-3">
+                        <!-- First Name -->
+                        <div class="col-sm-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="register-first-name" placeholder="First Name" required>
+                                <label for="register-first-name">First Name</label>
+                            </div>
+                        </div>
+                        <!-- Last Name -->
+                        <div class="col-sm-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="register-last-name" placeholder="Last Name" required>
+                                <label for="register-last-name">Last Name</label>
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div class="col-sm-6">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="register-email" placeholder="Email Address" required>
+                                <label for="register-email">Email Address</label>
+                            </div>
+                        </div>
+                        <!-- Role -->
+                        <div class="col-sm-6">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="register-role" required>
+                                    <option value="" disabled selected>Select Role</option>
+                                    <option value="doctor">Doctor</option>
+                                    <option value="lab-technician">Lab Technician</option>
+                                    <!-- Add more roles as needed -->
+                                </select>
+                                <label for="register-role">Role</label>
+                            </div>
+                        </div>
+                        <!-- Password -->
+                        <div class="col-sm-6">
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="register-password" placeholder="Password" required>
+                                <label for="register-password">Password</label>
+                            </div>
+                        </div>
+                        <!-- Confirm Password -->
+                        <div class="col-sm-6">
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="register-confirm-password" placeholder="Confirm Password" required>
+                                <label for="register-confirm-password">Confirm Password</label>
+                            </div>
+                        </div>
+                        <!-- Clinic -->
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="register-clinic" placeholder="Clinic" required>
+                                <label for="register-clinic">Clinic</label>
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Register</button>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="register-email" placeholder="Your Email">
-                            <label for="register-email">Your Email</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="register-password" placeholder="Password">
-                            <label for="register-password">Password</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="register-confirm-password" placeholder="Confirm Password">
-                            <label for="register-confirm-password">Confirm Password</label>
-                        </div>
-                    </div>
-                    <div class="col-12 text-center">
-                        <button class="btn btn-primary w-100 py-3" type="submit">Register</button>
-                    </div>
-                </div>
-            </form>
+                </form>
             </div>
+
+            <!-- Login Form -->
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <h2 class="mb-6">Login</h2>
+                <form action="" method="post">
+                    <div class="row g-3">
+                        <!-- Email -->
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="login-email" placeholder="Your Email" required>
+                                <label for="login-email">Your Email</label>
+                            </div>
+                        </div>
+                        <!-- Password -->
+                        <div class="col-12">
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="login-password" placeholder="Password" required>
+                                <label for="login-password">Password</label>
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>
-<!-- Appointment End -->
+<!-- Form End -->
+
 
 
         <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-white-50 py-5">
+        <div class="container-fluid bg-dark text-white-50 py-5" id="color-brand">
             <div class="container">
                 <div class="row g-5">
                     <div class="col-lg-4 col-md-6">
