@@ -4,37 +4,33 @@
   <img src="https://drive.google.com/uc?export=view&id=1eP_E6wWvZACpOk0ng2MiQ9xqVkZHbgNd" alt="Chemical Logo" width="200"/>
 </p>
 
-
 ## Introduction
 
-Labology is a website for Laboratory Management Systems that aims to improve the workflow between lab technicians and doctors. It efficiently manages laboratory tests, tracks patient results, and ensures communication between medical providers through its essential features:
+Labology is designed to enhance the efficiency of laboratory management by bridging the gap between lab technicians and doctors. The system optimizes the handling of laboratory tests, tracks patient results, and fosters effective communication among healthcare providers. Key features include:
 
-- **Dashboard**: Provides a record of all tests and overall lab performance, which can be accessed from both the doctor's and lab technician's sides.
-- **Result Management**: Supports the recording, verification, and reporting of test results and uploading them to the system.
-- **Patient Management**: Tracks patient information, such as test records, and ensures comprehensive and up-to-date profiles.
+- **Dashboard**: Accessible to both doctors and technicians, this feature offers a comprehensive view of all tests and overall lab performance.
+- **Result Management**: Facilitates the recording, verification, and reporting of test results, with the ability to upload them directly to the system.
+- **Patient Management**: Keeps track of patient information, including test records, and maintains accurate and current profiles.
 
-Labology's integrated strategy increases operational efficiency and improves communication between healthcare providers.
+Labology's integrated approach boosts operational efficiency and enhances communication between medical professionals.
 
 ## Requirements
 
 ### User Roles
 
-- **Doctors**: Can view and manage patient records, order tests, and review results.
-- **Technicians**: Can view test orders from doctors, update the status of tests, and upload results.
+- **Doctors**: Can access and manage patient records, order tests, and review results.
+- **Technicians**: Can view test orders from doctors, update test statuses, and upload results.
 
 ### Dashboard
 
-- Easily accessible by both doctors and technicians.
-- Displays all test records and their statuses.
-- Provides up-to-date information and the ability to order tests.
-- View test orders placed.
-- Update the status of tests (e.g., from pending to in progress) and patient information.
-- Edit details related to the patient, such as the type of test.
-- Delete patient or result.
-- Create and manage patient profiles.
-- Tests can be assigned to patients within their profiles.
+- Available to both doctors and technicians.
+- Displays all test records and their current statuses.
+- Allows for test ordering and monitoring.
+- Enables viewing of test orders, updating statuses (e.g., pending to in progress), and editing patient details.
+- Supports deletion of patient records or results.
+- Facilitates creation and management of patient profiles, with tests assigned within these profiles.
 
 ## UI/UX
 
-- **Frameworks Used**: Bootstrap.
-- **Interface**: User-friendly for both doctors and lab technicians.
+- **Framework Used**: Bootstrap.
+- **Interface**: Designed for ease of use for both doctors and lab technicians, ensuring a user-friendly experience.
