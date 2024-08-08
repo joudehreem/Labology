@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Labology - Tests Information</title>
+    <title>Labology - Patients Information</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -39,18 +39,15 @@
             <div class="container pb-2">
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex">
-                        <i class="bi bi-telephone-inbound fs-2"></i>
                         <div class="ms-3">
-                            <h5 class="text-white mb-0">Call Now</h5>
-                            <span>+012 345 6789</span>
+                            <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a>
+
                         </div>
                     </div>
-                    <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a>
                     <div class="d-flex">
-                        <i class="bi bi-envelope fs-2"></i>
                         <div class="ms-3">
-                            <h5 class="text-white mb-0">Mail Now</h5>
-                            <a href="mailto:info@labology.com"><span class="text-light">info@labology.com</span></a>
+                            <h5 class="text-white mb-0">Hello</h5>
+                            <h5><span class="text-light"> {{provider.role}} - {{provider.first_name}} </span></h5>
                         </div>
                     </div>
                 </div>
@@ -71,16 +68,20 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link active">About</a>
-                            <a href="login.html" class="nav-item nav-link">Login</a>
+                            <a href="index.html" class="nav-item nav-link disabled">Home</a>
+                            <a href="/about" class="nav-item nav-link ">About</a>
+                            <a href="/patients" class="nav-item nav-link ">All Patients</a>
+                            <a href="/new_patient" class="nav-item nav-link ">New Patient</a>
+
                         </div>
                     </div>
                     <div class="ms-auto d-none d-lg-flex">
-                        <a class="btn btn-sm-square btn-primary ms-2" id="color-brand" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand" ><i class="fab fa-youtube"></i></a>
+                        <form action="/logout" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" class="d-inline">
+                                <i class="bi bi-box-arrow-right"></i> Log Out
+                            </button>
+                        </form>
                     </div>
                 </nav>
             </div>
@@ -90,47 +91,60 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-4 mt-4">
-            <h1 class="display-2 text-white mb-3 animated slideInDown">Tests Information</h1>
+            <h1 class="display-2 text-white mb-3 animated slideInDown">Patient Details</h1>
 
         </div>
     </div>
     <!-- Page Header End -->
 
-<!-- Test Information Table -->
-<div class="container my-5 text-center">
-    <h2 class="mb-4">Test Information</h2>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead class="table" id="color-brand">
-                <tr class="text-light">
-                    <th scope="col">Test ID</th>
-                    <th scope="col">Type of Test</th>
-                    <th scope="col">Test Date</th>
-                    <th scope="col">Patient Name</th>
-                    <th scope="col">Patient Phone</th>
-                    <th scope="col">Patient ID</th>
-                    <th scope="col">Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Example Row -->
-                <tr>
-                    <td>001</td>
-                    <td>Blood Test</td>
-                    <td>2024-07-25</td>
-                    <td>Reem Joudeh</td>
-                    <td>000000000</td>
-                    <td>123456</td>
-                    <td>Results pending</td>
-                </tr>
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
+    <!-- Patient Details Start -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Patient Information -->
+            <div class="col-lg-6 wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+                <h2 class="mb-4">Patient Information</h2>
+                <ul class="list-unstyled">
+                    <li><strong>First Name:</strong> {{ patient.first_name }}</li>
+                    <li><strong>Last Name:</strong> {{ patient.last_name }}</li>
+                    <li><strong>Mobile Number:</strong> {{ patient.mobile }}</li>
+                    <li><strong>ID Number:</strong> {{ patient.id_number }}</li>
+                    <li><strong>Description:</strong> {{ patient.description }}</li>
+                    <li><strong>Gender:</strong> {{ patient.gender }}</li>
+                    <li><strong>Age:</strong> {{ patient.age }}</li>
+                </ul>
+            </div>
+
+            <!-- Add Test Form -->
+            <div class="col-lg-6 wow animate__animated animate__fadeInUp text-center" data-wow-delay="0.5s">
+                <h2 class="mb-4">Add Test for Patient</h2>
+                <form method="post" action="/patient/{{ patient.id }}/add_test">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="patient" name="patient" value="{{ patient.id }}" readonly>
+                    <label for="patient">Patient ID</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <select id="type_of_test" name="type_of_test" class="form-select" required>
+                        <option value="{{test.type_of_test}}"  selected>{{test.type_of_test}}</option>
+                        <option value="IRON">Iron</option>
+                        <option value="VITAMIN_D">Vitamin D</option>
+                    </select>
+                    <label for="type_of_test">Type of Test</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {% if provider.role == 'lab_technician' %}
+                    <input type="number" step="0.01" id="test_result" name="test_result" class="form-control" value="{{ test.test_result|default:0 }}">
+                    <label for="test_result">Test Result</label>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Test</button>
+            </form>
+        </div>
     </div>
 </div>
-
-
-
+    </div>
     <!-- Copyright End -->
 
     <div class="container-fluid copyright bg-dark text-white-50 py-5"  id="color-brand">
@@ -146,7 +160,7 @@
             </div>
         </div>
         </div>
-    <!-- Copyright End -->
+    <!-- Copyright End -->  
     
 
     <!-- Back to Top -->

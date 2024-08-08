@@ -39,18 +39,15 @@
             <div class="container pb-2">
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex">
-                        <i class="bi bi-telephone-inbound fs-2"></i>
                         <div class="ms-3">
-                            <h5 class="text-white mb-0">Call Now</h5>
-                            <span>+012 345 6789</span>
+                            <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a>
+
                         </div>
                     </div>
-                    <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a>
                     <div class="d-flex">
-                        <i class="bi bi-envelope fs-2"></i>
                         <div class="ms-3">
-                            <h5 class="text-white mb-0">Mail Now</h5>
-                            <a href="mailto:info@labology.com"><span class="text-light">info@labology.com</span></a>
+                            <h5 class="text-white mb-0">Hello</h5>
+                            <h5><span class="text-light"> {{provider.role}} - {{provider.first_name}} </span></h5>
                         </div>
                     </div>
                 </div>
@@ -71,16 +68,20 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link active">About</a>
-                            <a href="login.html" class="nav-item nav-link">Login</a>
+                            <a href="index.html" class="nav-item nav-link disabled">Home</a>
+                            <a href="/about" class="nav-item nav-link ">About</a>
+                            <a href="/patients" class="nav-item nav-link ">All Patients</a>
+                            <a href="/new_patient" class="nav-item nav-link ">New Patient</a>
+
                         </div>
                     </div>
                     <div class="ms-auto d-none d-lg-flex">
-                        <a class="btn btn-sm-square btn-primary ms-2" id="color-brand" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand" ><i class="fab fa-youtube"></i></a>
+                        <form action="/logout" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" class="d-inline">
+                                <i class="bi bi-box-arrow-right"></i> Log Out
+                            </button>
+                        </form>
                     </div>
                 </nav>
             </div>
@@ -99,46 +100,92 @@
     <!-- Patient Details Start -->
     <div class="container my-5">
         <div class="row">
-            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+            <!-- Patient Information -->
+            <div class="col-lg-6 wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
                 <h2 class="mb-4">Patient Information</h2>
                 <ul class="list-unstyled">
-                    <li><strong>First Name:</strong> Reem</li>
-                    <li><strong>Last Name:</strong> Joudeh</li>
-                    <li><strong>Phone Number:</strong> 000000</li>
-                    <li><strong>ID Number:</strong> 123456</li>
-                    <li><strong>Description:</strong> General checkup</li>
-                    <li><strong>Gender:</strong> Female</li>
-                    <li><strong>Age:</strong> 29</li>
+                    <li><strong>First Name:</strong> {{ patient.first_name }}</li>
+                    <li><strong>Last Name:</strong> {{ patient.last_name }}</li>
+                    <li><strong>Mobile Number:</strong> {{ patient.mobile }}</li>
+                    <li><strong>ID Number:</strong> {{ patient.id_number }}</li>
+                    <li><strong>Description:</strong> {{ patient.description }}</li>
+                    <li><strong>Gender:</strong> {{ patient.gender }}</li>
+                    <li><strong>Age:</strong> {{ patient.age }}</li>
                 </ul>
             </div>
 
-            <div class="col-lg-6 wow fadeInUp text-center" data-wow-delay="0.5s">
+            <!-- Add Test Form -->
+            <div class="col-lg-6 wow animate__animated animate__fadeInUp text-center" data-wow-delay="0.5s">
+                <h2 class="mb-4">Add Test for Patient</h2>
+                <form method="post" action="/patient/{{ patient.id }}/add_test">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="patient" name="patient" value="{{ patient.id }}" readonly>
+                    <label for="patient">Patient ID</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <select id="type_of_test" name="type_of_test" class="form-select" required>
+                        <option value="" disabled selected>Select a test</option>
+                        <option value="IRON">Iron</option>
+                        <option value="VITAMIN_D">Vitamin D</option>
+                    </select>
+                    <label for="type_of_test">Type of Test</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {% if provider.role == 'lab_technician' %}
+                    <input type="number" step="0.01" id="test_result" name="test_result" class="form-control" value="{{ test_result|default:0 }}">
+                    <label for="test_result">Test Result</label>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Test</button>
+            </form>
+        </div>
+    </div>
+
+        <!-- Test Information Table -->
+        <div class="row">
+            <div class="col-lg-12 wow animate__animated animate__fadeInUp text-center" data-wow-delay="0.5s">
                 <h2 class="mb-4">Test Information</h2>
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered">
-                        <thead class="table text-light" id="color-brand">
+                        <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Test ID</th>
                                 <th scope="col">Type of Test</th>
+                                <th scope="col">Test Result</th>
                                 <th scope="col">Test Date</th>
-                                <th scope="col">Details</th>
+                                <th scope="col">Updated At</th>
+                                {% if provider.role == 'lab_technician' %}
+                                <td>Action</td>
+                                {% endif %}
                             </tr>
                         </thead>
                         <tbody>
+                            {% for test in patient.tests.all %}
                             <tr>
-                                <td>001</td>
-                                <td>Blood Test</td>
-                                <td>2024-07-25</td>
-                                <td>Results pending</td>
+                                <td>{{ test.id }}</td>
+                                <td>{{ test.get_type_of_test_display }}</td>
+                                <td>{{ test.test_result }}</td>
+                                <td>{{ test.created_at }}</td>
+                                <td>{{ test.updated_at }}</td>
+                                {% if provider.role == 'lab_technician' %}
+                                <td><a href="{% url 'update_test' patient.id test.id %}">View</a></td>
+
+                                {% endif %}
                             </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">No tests available.</td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Patient Details End -->
-
     <!-- Copyright End -->
 
     <div class="container-fluid copyright bg-dark text-white-50 py-5"  id="color-brand">

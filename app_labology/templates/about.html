@@ -47,11 +47,19 @@
             </div>
 
             <div class="d-flex">
+                {% if 'user_id' not in request.session %}
                 <i class="bi bi-envelope fs-2"></i>
                 <div class="ms-3">
                     <h5 class="text-white mb-0">Mail Now</h5>
                     <a href="mailto:info@labology.com"><span class="text-light">info@labology.com</span></a>
                 </div>
+            {% else %}
+                <div class="ms-3">
+                    <h5 class="text-white mb-0">Hello</h5>
+                    <h5><span class="text-light">{{provider.role}} - {{ provider.first_name }} </span></h5>
+                </div>
+            {% endif %}
+            
             </div>
         </div>
     </div>
@@ -73,16 +81,36 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link active">About</a>
-                            <a href="login.html" class="nav-item nav-link">Login</a>
+                            {% if 'user_id' not in request.session %}
+                            <a href="/" class="nav-item nav-link ">Home</a>
+                            {% else %}
+                            <a href="/" class="nav-item nav-link disabled ">Home</a>
+                            {% endif %}
+                            <a href="/about" class="nav-item nav-link active">About</a>
+                            {% if 'user_id' not in request.session %}
+                            <a href="/patients" class="nav-item nav-link disabled">All Patients</a>
+                            <a href="/new_patient" class="nav-item nav-link disabled">New Patient</a>
+                            {% else %}
+                            <a href="/patients" class="nav-item nav-link">All Patients</a>
+                            <a href="/new_patient" class="nav-item nav-link ">New 
+                            {% endif %}
                         </div>
                     </div>
                     <div class="ms-auto d-none d-lg-flex">
+                        {% if 'user_id' not in request.session %}
                         <a class="btn btn-sm-square btn-primary ms-2" id="color-brand" href="#"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-linkedin-in"></i></a>
                         <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand" ><i class="fab fa-youtube"></i></a>
+                        {% else %}
+
+                        <form action="/logout" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" class="d-inline">
+                                <i class="bi bi-box-arrow-right"></i> Log Out
+                            </button>
+                        </form>
+                        {% endif %}
                     </div>
                 </nav>
             </div>

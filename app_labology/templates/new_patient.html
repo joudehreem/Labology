@@ -39,23 +39,21 @@
             <div class="container pb-2">
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex">
-                        <i class="bi bi-telephone-inbound fs-2"></i>
                         <div class="ms-3">
-                            <h5 class="text-white mb-0">Call Now</h5>
-                            <span>+012 345 6789</span>
+                            <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a>
+
                         </div>
                     </div>
-                    <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a>
                     <div class="d-flex">
-                        <i class="bi bi-envelope fs-2"></i>
                         <div class="ms-3">
-                            <h5 class="text-white mb-0">Mail Now</h5>
-                            <a href="mailto:info@labology.com"><span class="text-light">info@labology.com</span></a>
+                            <h5 class="text-white mb-0">Hello</h5>
+                            <h5><span class="text-light"> {{provider.role}} - {{provider.first_name}} </span></h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <!-- Brand End -->
 
 
@@ -71,16 +69,20 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link active">About</a>
-                            <a href="login.html" class="nav-item nav-link">Login</a>
+                            <a href="index.html" class="nav-item nav-link disabled">Home</a>
+                            <a href="/about" class="nav-item nav-link ">About</a>
+                            <a href="/patients" class="nav-item nav-link ">All Patients</a>
+                            <a href="/new_patient" class="nav-item nav-link active ">New Patient</a>
+
                         </div>
                     </div>
                     <div class="ms-auto d-none d-lg-flex">
-                        <a class="btn btn-sm-square btn-primary ms-2" id="color-brand" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand" ><i class="fab fa-youtube"></i></a>
+                        <form action="/logout" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" class="d-inline">
+                                <i class="bi bi-box-arrow-right"></i> Log Out
+                            </button>
+                        </form>
                     </div>
                 </nav>
             </div>
@@ -98,69 +100,91 @@
 
 <div class="container-fluid py-5">
     <div class="container">
-        <div class="row g-5">
+    <div class="row">
 
 <!-- Patient Registration Form -->
-<div class="col-lg-6 wow fadeInUp" data-wow-delay="0.9s">
+<div class="col wow fadeInUp text-center" data-wow-delay="0.9s">
     <h2 class="mb-4">New Patient</h2>
-    <form action="" method="post">
+    <form action="/register_patient" method="post">
+        {% csrf_token %}
         <div class="row g-3">
             <!-- First Name -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="patient-first-name" placeholder="First Name" required>
-                    <label for="patient-first-name">First Name</label>
+                    <input type="text" class="form-control" id="first_name" placeholder="First Name" name="first_name">
+                    <label for="first_name">First Name</label>
                 </div>
             </div>
             <!-- Last Name -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="patient-last-name" placeholder="Last Name" required>
-                    <label for="patient-last-name">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" placeholder="Last Name" name="last_name">
+                    <label for="last_name">Last Name</label>
                 </div>
             </div>
             <!-- Phone -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="tel" class="form-control" id="patient-phone" placeholder="Phone Number" required>
-                    <label for="patient-phone">Phone Number</label>
+                    <input type="tel" class="form-control" id="mobile" placeholder="Mobile Number" name="mobile">
+                    <label for="mobile">Mobile Number</label>
                 </div>
             </div>
             <!-- ID -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="patient-id" placeholder="ID Number" required>
+                    <input type="text" class="form-control" id="id_number" placeholder="ID Number" name="id_number">
                     <label for="patient-id">ID Number</label>
                 </div>
             </div>
             <!-- Description -->
             <div class="col-12">
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" id="patient-description" placeholder="Description" style="height: 100px;" required></textarea>
-                    <label for="patient-description">Description</label>
+                    <textarea class="form-control" id="description" placeholder="Description" style="height: 100px;" name="description"></textarea>
+                    <label for="description">Description</label>
                 </div>
             </div>
             <!-- Gender -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <select class="form-select" id="patient-gender" required>
+                    <select class="form-select" id="gender" name="gender">
                         <option value="" disabled selected>Select Gender</option>
                         <option value="male">Male</option>
-                        <option value="">Female</option>
+                        <option value="Female">Female</option>
                     </select>
-                    <label for="patient-gender">Gender</label>
+                    <label for="gender">Gender</label>
                 </div>
             </div>
             <!-- Age -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="patient-age" placeholder="Age" required>
-                    <label for="patient-age">Age</label>
+                    <input type="number" class="form-control" id="age" placeholder="Age" name="age">
+                    <label for="age">Age</label>
                 </div>
             </div>
+
+        </div>
+        <div class="row g-3">
+            <!-- Type of Test -->
+            <div class="col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="type_of_test" name="type_of_test">
+                        <option value="" disabled selected>Select Test Type</option>
+                        <option value="IRON">Iron</option>
+                        <option value="VITAMIN_D">Vitamin D</option>
+                    </select>
+                    <label for="type_of_test">Type of Test</label>
+                </div>
+            </div>
+            <!-- Test Result -->
+            <!-- <div class="col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="test_result" name="test_result" step="any">
+                    <label for="test_result">Test Result</label>
+                </div>
+            </div> -->
             <!-- Submit Button -->
             <div class="col-12 text-center">
-                <button class="btn btn-primary w-100 py-3" type="submit">Register</button>
+                <input class="btn btn-primary w-100 py-3" id="color-brand" type="submit" value="Register">
             </div>
         </div>
     </form>
@@ -168,41 +192,20 @@
         </div>
     </div>
 </div>
-        <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-white-50 py-5" id="color-brand">
-            <div class="container">
-                <div class="row g-5">
-                    <div class="col-lg-4 col-md-6">
-                        <h5 class="text-white mb-4">Get In Touch</h5>
-                        <p class="mb-4 text-light">123 Street, New York, USA</p>
-                        <p class="mb-4 text-light">+012 345 6789</p>
-                        <p class="mb-4"><a href="mailto:info@labology.com"><span class="text-light">info@labology.com</span></a></p>
-                        <div class="d-flex">
-                            <a class="btn btn-outline-light btn-square me-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-square me-2" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-square me-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-outline-light btn-square" href="#"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <h5 class="text-white mb-4">Quick Links</h5>
-                        <a class="btn btn-link text-white-50" href="#">About</a>
-                        <a class="btn btn-link text-white-50" href="#">Services</a>
-                        <a class="btn btn-link text-white-50" href="#">Contact</a>
-                        <a class="btn btn-link text-white-50" href="#">Privacy Policy</a>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <h5 class="text-white mb-4">Newsletter</h5>
-                        <p class="mb-4">Sign up for our newsletter to get the latest updates</p>
-                        <div class="position-relative mx-auto" style="max-width: 400px;">
-                            <input class="form-control border-light rounded-pill ps-4 pe-5" type="text" placeholder="Your email">
-                            <button type="button" class="btn btn-primary  btn-sm rounded-pill position-absolute top-0 end-0 mt-1 me-2">Sign Up</button>
-                        </div>
-                    </div>
+    <div class="container-fluid copyright bg-dark text-white-50 py-5"  id="color-brand">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; <a href="#">Reem Joudeh</a>. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    <p class="mb-0">Designed by <a href="https://htmlcodex.com">HTML Codex</a><br>Distributed by <a href="https://themewagon.com">ThemeWagon</a></p>
                 </div>
             </div>
         </div>
-        <!-- Footer End -->
+        </div>
+    <!-- Copyright End --> 
     
 
     <!-- Back to Top -->

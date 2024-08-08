@@ -39,19 +39,26 @@
             <div class="container pb-2">
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex">
-                        <i class="bi bi-telephone-inbound fs-2"></i>
+                        <!-- <i class="bi bi-telephone-inbound fs-2"></i> -->
                         <div class="ms-3">
-                            <h5 class="text-white mb-0">Call Now</h5>
-                            <span>+012 345 6789</span>
+                            <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a>
+
                         </div>
                     </div>
-                    <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a>
+                    <!-- <a href="index.html" class="h1 text-light mb-0">Labo<span class="text-lightzzy">Logy</span></a> -->
                     <div class="d-flex">
+                        {% if 'user_id' not in request.session %}
                         <i class="bi bi-envelope fs-2"></i>
                         <div class="ms-3">
                             <h5 class="text-white mb-0">Mail Now</h5>
                             <a href="mailto:info@labology.com"><span class="text-light">info@labology.com</span></a>
                         </div>
+                    {% else %}
+                        <div class="ms-3">
+                            <h5 class="text-white mb-0">Hello</h5>
+                            <h5><span class="text-light">{{provider.role}} - {{ provider.first_name }} </span></h5>
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
             </div>
@@ -71,16 +78,32 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link active">About</a>
-                            <a href="login.html" class="nav-item nav-link">Login</a>
+                            <a href="/" class="nav-item nav-link active">Home</a>
+                            <a href="/about" class="nav-item nav-link ">About</a>
+                            {% if 'user_id' not in request.session %}
+                            <a href="/patients" class="nav-item nav-link disabled">All Patients</a>
+                            <a href="/new_patient" class="nav-item nav-link disabled">New Patient</a>
+                            {% else %}
+                            <a href="/patients" class="nav-item nav-link">All Patients</a>
+                            <a href="/new_patient" class="nav-item nav-link ">New 
+                            {% endif %}
                         </div>
                     </div>
                     <div class="ms-auto d-none d-lg-flex">
+                        {% if 'user_id' not in request.session %}
                         <a class="btn btn-sm-square btn-primary ms-2" id="color-brand" href="#"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand"><i class="fab fa-linkedin-in"></i></a>
                         <a class="btn btn-sm-square btn-primary ms-2" href="#" id="color-brand" ><i class="fab fa-youtube"></i></a>
+                        {% else %}
+
+                        <form action="/logout" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" class="d-inline">
+                                <i class="bi bi-box-arrow-right"></i> Log Out
+                            </button>
+                        </form>
+                        {% endif %}
                     </div>
                 </nav>
             </div>
@@ -90,114 +113,122 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5 mt-4">
-            <h1 class="display-2 text-white mb-3 animated slideInDown">Regestration / Login</h1>
+            <h1 class="display-2 text-white mb-3 animated slideInDown">Registration / Login</h1>
 
         </div>
     </div>
     <!-- Page Header End -->
-<!-- Form Start -->
-<div class="container-fluid py-5">
-    <div class="container form-container">
-        <div class="row g-5">
+    <!-- Form Start -->
+    <div class="container-fluid py-5">
+        <div class="container form-container">
+            <div class="row g-5">
+                <!-- Registration Form -->
+                {% if messages %}
+                <ul class="messages list-group">    
+                    {% for message in messages %}    
+                        <li {% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-danger m-1"{% endif %}>{{ message }}</li>    
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <h2 class="mb-4">Register</h2>
+                    <form action="/register_user" method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <!-- First Name -->
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
+                                    <label for="first_name">First Name</label>
+                                </div>
+                            </div>
+                            <!-- Last Name -->
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" >
+                                    <label for="last_name">Last Name</label>
+                                </div>
+                            </div>
+                            <!-- Email -->
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" >
+                                    <label for="email">Email Address</label>
+                                </div>
+                            </div>
+                            <!-- Role -->
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="role" name="role" >
+                                        <option value="" disabled selected>Select Role</option>
+                                        <option value="doctor">Doctor</option>
+                                        <option value="lab_technician">Lab Technician</option>
+                                    </select>
+                                    <label for="register-role">Role</label>
+                                </div>
+                            </div>
+                            <!-- Password -->
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" >
+                                    <label for="password">Password</label>
+                                </div>
+                            </div>
+                            <!-- Confirm Password -->
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password"  name="confirm_password">
+                                    <label for="confirm_password">Confirm Password</label>
+                                </div>
+                            </div>
+                            <!-- Clinic -->
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="clinic" name="clinic" placeholder="Clinic" >
+                                    <label for="clinic">Clinic</label>
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="col-12 text-center">
+                                <input class="btn btn-primary w-100 py-3" type="submit"  id="color-brand" value="Register">
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
-            <!-- Registration Form -->
-            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.7s">
-                <h2 class="mb-4">Register</h2>
-                <form action="" method="post">
-                    <div class="row g-3">
-                        <!-- First Name -->
-                        <div class="col-sm-6">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="register-first-name" placeholder="First Name" required>
-                                <label for="register-first-name">First Name</label>
+                <!-- Login Form -->
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <h2 class="mb-4">Login</h2>
+                    <form action="/login_user" method="post">
+                        {% csrf_token %}
+
+                        <div class="row g-3">
+                            <!-- Email -->
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
+                                    <label for="email">Your Email</label>
+                                </div>
+                            </div>
+                            <!-- Password -->
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                                    <label for="password">Password</label>
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="col-12 text-center">
+                                <input class="btn btn-primary w-100 py-3" type="submit" id="color-brand" value="Login">
                             </div>
                         </div>
-                        <!-- Last Name -->
-                        <div class="col-sm-6">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="register-last-name" placeholder="Last Name" required>
-                                <label for="register-last-name">Last Name</label>
-                            </div>
-                        </div>
-                        <!-- Email -->
-                        <div class="col-sm-6">
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="register-email" placeholder="Email Address" required>
-                                <label for="register-email">Email Address</label>
-                            </div>
-                        </div>
-                        <!-- Role -->
-                        <div class="col-sm-6">
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="register-role" required>
-                                    <option value="" disabled selected>Select Role</option>
-                                    <option value="doctor">Doctor</option>
-                                    <option value="lab-technician">Lab Technician</option>
-                                    <!-- Add more roles as needed -->
-                                </select>
-                                <label for="register-role">Role</label>
-                            </div>
-                        </div>
-                        <!-- Password -->
-                        <div class="col-sm-6">
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="register-password" placeholder="Password" required>
-                                <label for="register-password">Password</label>
-                            </div>
-                        </div>
-                        <!-- Confirm Password -->
-                        <div class="col-sm-6">
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="register-confirm-password" placeholder="Confirm Password" required>
-                                <label for="register-confirm-password">Confirm Password</label>
-                            </div>
-                        </div>
-                        <!-- Clinic -->
-                        <div class="col-12">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="register-clinic" placeholder="Clinic" required>
-                                <label for="register-clinic">Clinic</label>
-                            </div>
-                        </div>
-                        <!-- Submit Button -->
-                        <div class="col-12 text-center">
-                            <button class="btn btn-primary w-100 py-3" type="submit">Register</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
             </div>
-
-            <!-- Login Form -->
-            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                <h2 class="mb-6">Login</h2>
-                <form action="" method="post">
-                    <div class="row g-3">
-                        <!-- Email -->
-                        <div class="col-12">
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="login-email" placeholder="Your Email" required>
-                                <label for="login-email">Your Email</label>
-                            </div>
-                        </div>
-                        <!-- Password -->
-                        <div class="col-12">
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="login-password" placeholder="Password" required>
-                                <label for="login-password">Password</label>
-                            </div>
-                        </div>
-                        <!-- Submit Button -->
-                        <div class="col-12 text-center">
-                            <button class="btn btn-primary w-100 py-3" type="submit">Login</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
         </div>
     </div>
-</div>
-<!-- Form End -->
+    <!-- Form End -->
 
 
 
