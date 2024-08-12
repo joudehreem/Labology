@@ -4,4 +4,3 @@ from .models import *
 
 admin.site.register(Role)
 admin.site.register(Test)
-admin.site.register(Patient)
