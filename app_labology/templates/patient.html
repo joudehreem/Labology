@@ -117,30 +117,26 @@
             <!-- Add Test Form -->
             <div class="col-lg-6 wow animate__animated animate__fadeInUp text-center" data-wow-delay="0.5s">
                 <h2 class="mb-4">Add Test for Patient</h2>
-                <form method="post" action="/patient/{{ patient.id }}/add_test">
-                {% csrf_token %}
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control" id="patient" name="patient" value="{{ patient.id }}" readonly>
                     <label for="patient">Patient ID</label>
                 </div>
-
-                <div class="form-floating mb-3">
-                    <select id="type_of_test" name="type_of_test" class="form-select" required>
-                        <option value="" disabled selected>Select a test</option>
-                        <option value="IRON">Iron</option>
-                        <option value="VITAMIN_D">Vitamin D</option>
+                <form method="post" action=/add_test/{{patient.id}} id="post-form">
+                    {% csrf_token %}
+                
+                    <div class="form-floating mb-3">
+                    <select class="form-select" id="type_of_test" name="type_of_test">
+                        <option value="" disabled selected>Select Test Types</option>
+                        {% for test in tests %}
+                        <option value="{{ test.id }}">{{ test.type_of_test }}</option>
+                        {% endfor %}
                     </select>
                     <label for="type_of_test">Type of Test</label>
                 </div>
-                <div class="form-floating mb-3">
-                    {% if provider.role == 'lab_technician' %}
-                    <input type="number" step="0.01" id="test_result" name="test_result" class="form-control" value="{{ test_result|default:0 }}">
-                    <label for="test_result">Test Result</label>
-                    {% endif %}
-                </div>
+                
+                    <button type="submit" class="btn btn-primary">Add Tests</button>
+                </form>
 
-                <button type="submit" class="btn btn-primary">Add Test</button>
-            </form>
         </div>
     </div>
 
@@ -155,34 +151,82 @@
                                 <th scope="col">Test ID</th>
                                 <th scope="col">Type of Test</th>
                                 <th scope="col">Test Result</th>
-                                <th scope="col">Test Date</th>
+                                <th scope="col">Normal Range</th>
                                 <th scope="col">Updated At</th>
-                                {% if provider.role == 'lab_technician' %}
-                                <td>Action</td>
-                                {% endif %}
+                                {% if provider.role.name == 'Lab Technician' %}
+                                    <th scope="col">View</th>
+                                        {% endif %}
+                                <th scope="col">PDF</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for test in patient.tests.all %}
-                            <tr>
-                                <td>{{ test.id }}</td>
-                                <td>{{ test.get_type_of_test_display }}</td>
-                                <td>{{ test.test_result }}</td>
-                                <td>{{ test.created_at }}</td>
-                                <td>{{ test.updated_at }}</td>
-                                {% if provider.role == 'lab_technician' %}
-                                <td><a href="{% url 'update_test' patient.id test.id %}">View</a></td>
-
-                                {% endif %}
-                            </tr>
+                            {% for patient_test in page_obj.object_list %}
+                                <tr>
+                                    <td>{{ patient_test.id }}</td>
+                                    <td>{{ patient_test.test.type_of_test }}</td>
+                                    <td>{{ patient_test.test_result }}</td>
+                                    <td>{{ patient_test.test.normal_range }}</td>
+                                    <td>{{ test.updated_at }}</td>
+                                {% if provider.role.name == 'Lab Technician' %} <td>
+                                    <a href="/update_test/{{patient.id}}/{{patient_test.id}}">View</a></td>
+                                        {% endif %}
+                                    <td><a href="/pdf/{{patient_test.id}}/"><i class="bi bi-filetype-pdf fs-3"></i></a></td>
+                                </tr>
                             {% empty %}
-                            <tr>
-                                <td colspan="5">No tests available.</td>
-                            </tr>
+                                <tr>
+                                    <td colspan="7">No tests available.</td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                </div></div></div>
+                    <div class="pagination justify-content-center">
+                        <span class="step-links">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                                <i class="bi bi-arrow-left-circle fs-5"></i>
+                                            </a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="bi bi-arrow-left-circle-fill fs-5"></i></span>
+                                        </li>
+                                    {% endif %}
+                                    
+                                    {% for num in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == num %}
+                                            <li class="page-item active" aria-current="page">
+                                                <span class="page-link fs-5">{{ num }}</span>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item">
+                                                <a class="page-link fs-5" href="?page={{ num }}">{{ num }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                                <i class="bi bi-arrow-right-circle fs-5"></i>
+                                            </a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <span class="page-link"><i class="bi bi-arrow-right-circle-fill fs-5"></i></span>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </span>
+                    </div>
+                    
+                    
                 </div>
+                
             </div>
         </div>
     </div>
@@ -217,6 +261,8 @@
 
     <!-- Template JavaScript -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </body>
 
 </html>

@@ -113,34 +113,39 @@
                     <li><strong>Age:</strong> {{ patient.age }}</li>
                 </ul>
             </div>
+<!-- Add Test Form -->
 
-            <!-- Add Test Form -->
-            <div class="col-lg-6 wow animate__animated animate__fadeInUp text-center" data-wow-delay="0.5s">
-                <h2 class="mb-4">Add Test for Patient</h2>
-                <form method="post" action="/patient/{{ patient.id }}/add_test">
-                {% csrf_token %}
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="patient" name="patient" value="{{ patient.id }}" readonly>
-                    <label for="patient">Patient ID</label>
-                </div>
+<div class="col-lg-6 wow animate__animated animate__fadeInUp text-center" data-wow-delay="0.5s">
+    <h2 class="mb-4">Add Test Result for Patient</h2>
+    <!-- Patient ID (read-only) -->
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="patient_id" name="patient_id" value="{{ patient.id }}" readonly>
+        <label for="patient_id">Patient ID</label>
+    </div>
+    
+    <!-- Type of Test Selection -->
+    <div class="form-floating mb-3">
+        <select id="type_of_test" name="type_of_test" class="form-select" required>
+            <!-- Pre-selected option -->
+            <option value="{{ test.type_of_test.id }}" selected>{{ test.test.type_of_test }}</option>
+            <!-- Add more options as needed -->
+        </select>
+        <label for="type_of_test">Type of Test</label>
+    </div>
+    
+    <form action="/{{test.id}}/add_result" method="post">
+        {% csrf_token %}
+        <!-- Test Result Input -->
+        <div class="form-floating mb-3">
+            <input type="number" step="0.01" id="test_result" name="test_result" class="form-control" value="{{ test.test_result}}">
+            <label for="test_result">Test Result</label>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Add Test</button>
+    </form>
+</div>
 
-                <div class="form-floating mb-3">
-                    <select id="type_of_test" name="type_of_test" class="form-select" required>
-                        <option value="{{test.type_of_test}}"  selected>{{test.type_of_test}}</option>
-                        <option value="IRON">Iron</option>
-                        <option value="VITAMIN_D">Vitamin D</option>
-                    </select>
-                    <label for="type_of_test">Type of Test</label>
-                </div>
-                <div class="form-floating mb-3">
-                    {% if provider.role == 'lab_technician' %}
-                    <input type="number" step="0.01" id="test_result" name="test_result" class="form-control" value="{{ test.test_result|default:0 }}">
-                    <label for="test_result">Test Result</label>
-                    {% endif %}
-                </div>
-
-                <button type="submit" class="btn btn-primary">Add Test</button>
-            </form>
         </div>
     </div>
 </div>

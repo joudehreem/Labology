@@ -105,7 +105,7 @@
 <!-- Patient Registration Form -->
 <div class="col wow fadeInUp text-center" data-wow-delay="0.9s">
     <h2 class="mb-4">New Patient</h2>
-    <form action="/register_patient" method="post">
+    <form action="/register_patient/{{patient.id}}" method="post">
         {% csrf_token %}
         <div class="row g-3">
             <!-- First Name -->
@@ -163,18 +163,19 @@
             </div>
 
         </div>
-        <div class="row g-3">
+        <!-- <div class="row g-3"> -->
             <!-- Type of Test -->
-            <div class="col-sm-6">
+            <!-- <!-- <div class="col-sm-6">
                 <div class="form-floating mb-3">
                     <select class="form-select" id="type_of_test" name="type_of_test">
                         <option value="" disabled selected>Select Test Type</option>
-                        <option value="IRON">Iron</option>
-                        <option value="VITAMIN_D">Vitamin D</option>
+                        {% for test in tests %}
+                        <option value="{{test.id}}">{{test.name}}</option>
+                        {% endfor %}
                     </select>
                     <label for="type_of_test">Type of Test</label>
-                </div>
-            </div>
+                </div> -->
+            <!-- </div> --> 
             <!-- Test Result -->
             <!-- <div class="col-sm-6">
                 <div class="form-floating mb-3">

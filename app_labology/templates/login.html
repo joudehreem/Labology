@@ -159,12 +159,13 @@
                             <!-- Role -->
                             <div class="col-sm-6">
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" id="role" name="role" >
+                                    <select class="form-select" id="role" name="role">
                                         <option value="" disabled selected>Select Role</option>
-                                        <option value="doctor">Doctor</option>
-                                        <option value="lab_technician">Lab Technician</option>
-                                    </select>
-                                    <label for="register-role">Role</label>
+                                        {% for role in roles %}
+                                            <option value="{{ role.id }}">{{ role.name }}</option>
+                                        {% endfor %}
+                                        </select>
+                                    <label for="role">Role</label>
                                 </div>
                             </div>
                             <!-- Password -->
@@ -280,9 +281,9 @@
     <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
     <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-
     <!-- Template JavaScript -->
     <script src="{% static 'js/main.js' %}"></script>
+    
 </body>
 
 </html>
