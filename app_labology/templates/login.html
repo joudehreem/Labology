@@ -70,7 +70,7 @@
         <div class="container-fluid sticky-top">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light bg-white py-lg-0 px-lg-3">
-                    <a href="index.html" class="navbar-brand d-lg-none">
+                    <a href="/" class="navbar-brand d-lg-none">
                         <h1 class="text-primary m-0">Lab<span class="text-dark">sky</span></h1>
                     </a>
                     <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -117,105 +117,113 @@
 
         </div>
     </div>
+    
     <!-- Page Header End -->
     <!-- Form Start -->
     <div class="container-fluid py-5">
         <div class="container form-container">
             <div class="row g-5">
                 <!-- Registration Form -->
-                {% if messages %}
-                <ul class="messages list-group">    
-                    {% for message in messages %}    
-                        <li {% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-danger m-1"{% endif %}>{{ message }}</li>    
-                    {% endfor %}
-                </ul>
-                {% endif %}
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <h2 class="mb-4">Register</h2>
-                    <form action="/register_user" method="post">
-                        {% csrf_token %}
-                        <div class="row g-3">
-                            <!-- First Name -->
-                            <div class="col-sm-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
-                                    <label for="first_name">First Name</label>
-                                </div>
-                            </div>
-                            <!-- Last Name -->
-                            <div class="col-sm-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" >
-                                    <label for="last_name">Last Name</label>
-                                </div>
-                            </div>
-                            <!-- Email -->
-                            <div class="col-sm-6">
-                                <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" >
-                                    <label for="email">Email Address</label>
-                                </div>
-                            </div>
-                            <!-- Role -->
-                            <div class="col-sm-6">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="role" name="role">
-                                        <option value="" disabled selected>Select Role</option>
-                                        {% for role in roles %}
-                                            <option value="{{ role.id }}">{{ role.name }}</option>
-                                        {% endfor %}
-                                        </select>
-                                    <label for="role">Role</label>
-                                </div>
-                            </div>
-                            <!-- Password -->
-                            <div class="col-sm-6">
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" >
-                                    <label for="password">Password</label>
-                                </div>
-                            </div>
-                            <!-- Confirm Password -->
-                            <div class="col-sm-6">
-                                <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password"  name="confirm_password">
-                                    <label for="confirm_password">Confirm Password</label>
-                                </div>
-                            </div>
-                            <!-- Clinic -->
-                            <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="clinic" name="clinic" placeholder="Clinic" >
-                                    <label for="clinic">Clinic</label>
-                                </div>
-                            </div>
-                            <!-- Submit Button -->
-                            <div class="col-12 text-center">
-                                <input class="btn btn-primary w-100 py-3" type="submit"  id="color-brand" value="Register">
-                            </div>
-                        </div>
-                    </form>
+
+        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.7s">
+    <h2 class="mb-4">Register</h2>
+    <form action="/register_user" method="post" id="registration-form">
+        {% csrf_token %}
+        <div class="row g-3">
+            <!-- First Name -->
+            <div class="col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" value="{{ postData.first_name }}">
+                    <label for="first_name">First Name</label>
+                    <div class="invalid-feedback" id="error-first_name"></div>
                 </div>
+            </div>
+            <!-- Last Name -->
+            <div class="col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" value="{{ postData.last_name }}">
+                    <label for="last_name">Last Name</label>
+                    <div class="invalid-feedback" id="error-last_name"></div>
+                </div>
+            </div>
+            <!-- Email -->
+            <div class="col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" value="{{ postData.email }}">
+                    <label for="email">Email Address</label>
+                    <div class="invalid-feedback" id="error-email"></div>
+                </div>
+            </div>
+            <!-- Role -->
+            <div class="col-sm-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="role" name="role">
+                        <option value="" disabled selected>Select Role</option>
+                        {% for role in roles %}
+                            <option value="{{ role.id }}" {% if postData.role == role.id %}selected{% endif %}>{{ role.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="role">Role</label>
+                    <div class="invalid-feedback" id="error-role"></div>
+                </div>
+            </div>
+            <!-- Password -->
+            <div class="col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <label for="password">Password</label>
+                    <div class="invalid-feedback" id="error-password"></div>
+                </div>
+            </div>
+            <!-- Confirm Password -->
+            <div class="col-sm-6">
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+                    <label for="confirm_password">Confirm Password</label>
+                    <div class="invalid-feedback" id="error-confirm_password"></div>
+                </div>
+            </div>
+            <!-- Clinic -->
+            <div class="col-12">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="clinic" name="clinic" placeholder="Clinic" value="{{ postData.clinic }}">
+                    <label for="clinic">Clinic</label>
+                    <div class="invalid-feedback" id="error-clinic"></div>
+                </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="col-12 text-center">
+                <input class="btn btn-primary w-100 py-3" type="submit" id="color-brand" value="Register">
+            </div>
+        </div>
+    </form>
+    
+</div>
+
 
                 <!-- Login Form -->
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.7s">
                     <h2 class="mb-4">Login</h2>
-                    <form action="/login_user" method="post">
+                    <form action="/login_user" method="post" id="login-form">
                         {% csrf_token %}
-
+        
+                        <div id="errorMessages" class="alert alert-danger d-none" role="alert"></div>
+        
                         <div class="row g-3">
                             <!-- Email -->
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
-                                    <label for="email">Your Email</label>
+                                    <input type="email" class="form-control" id="login-email" name="email" placeholder="Your Email">
+                                    <label for="login-email">Your Email</label>
+                                    <div class="invalid-feedback" id="error-login-email"></div>
                                 </div>
                             </div>
                             <!-- Password -->
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="login-password" placeholder="Password" name="password">
+                                    <label for="login-password">Password</label>
+                                    <div class="invalid-feedback" id="error-login-password"></div>
                                 </div>
                             </div>
                             <!-- Submit Button -->
@@ -283,6 +291,122 @@
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
     <!-- Template JavaScript -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const registrationForm = document.getElementById('registration-form');
+            const loginForm = document.getElementById('login-form');
+    
+            function validateField(id, value, regex, minLength, errorMsg) {
+                const field = document.getElementById(id);
+                const error = document.getElementById(`error-${id}`);
+                if (value.trim() === '') {
+                    error.textContent = `${errorMsg} is required.`;
+                    field.classList.add('is-invalid');
+                    return false;
+                } else if (minLength && value.length < minLength) {
+                    error.textContent = `${errorMsg} should be at least ${minLength} characters.`;
+                    field.classList.add('is-invalid');
+                    return false;
+                } else if (regex && !regex.test(value)) {
+                    error.textContent = `Invalid ${errorMsg}.`;
+                    field.classList.add('is-invalid');
+                    return false;
+                } else {
+                    error.textContent = '';
+                    field.classList.remove('is-invalid');
+                    return true;
+                }
+            }
+    
+            function validatePasswordMatch() {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm_password').value;
+                const confirmPasswordError = document.getElementById('error-confirm_password');
+                if (password !== confirmPassword) {
+                    confirmPasswordError.textContent = 'Passwords do not match.';
+                    document.getElementById('confirm_password').classList.add('is-invalid');
+                    return false;
+                } else {
+                    confirmPasswordError.textContent = '';
+                    document.getElementById('confirm_password').classList.remove('is-invalid');
+                    return true;
+                }
+            }
+    
+            function validateLoginForm() {
+                let isValid = true;
+    
+                isValid &= validateField('login-email', document.getElementById('login-email').value, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, null, 'Email');
+                isValid &= validateField('login-password', document.getElementById('login-password').value, null, 8, 'Password');
+    
+                return isValid;
+            }
+    
+            registrationForm.addEventListener('input', (event) => {
+                const target = event.target;
+                switch (target.id) {
+                    case 'first_name':
+                        validateField('first_name', target.value, null, 2, 'First Name');
+                        break;
+                    case 'last_name':
+                        validateField('last_name', target.value, null, 2, 'Last Name');
+                        break;
+                    case 'email':
+                        validateField('email', target.value, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, null, 'Email');
+                        break;
+                    case 'password':
+                        validateField('password', target.value, null, 8, 'Password');
+                        validatePasswordMatch();
+                        break;
+                    case 'confirm_password':
+                        validatePasswordMatch();
+                        break;
+                    case 'role':
+                        validateField('role', target.value, null, null, 'Role');
+                        break;
+                    case 'clinic':
+                        validateField('clinic', target.value, null, null, 'Clinic');
+                        break;
+                }
+            });
+    
+            registrationForm.addEventListener('submit', (event) => {
+                let isValid = true;
+    
+                isValid &= validateField('first_name', document.getElementById('first_name').value, null, 2, 'First Name');
+                isValid &= validateField('last_name', document.getElementById('last_name').value, null, 2, 'Last Name');
+                isValid &= validateField('email', document.getElementById('email').value, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, null, 'Email');
+                isValid &= validateField('password', document.getElementById('password').value, null, 8, 'Password');
+                isValid &= validatePasswordMatch();
+                isValid &= validateField('role', document.getElementById('role').value, null, null, 'Role');
+                isValid &= validateField('clinic', document.getElementById('clinic').value, null, null, 'Clinic');
+    
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+    
+            loginForm.addEventListener('input', (event) => {
+                const target = event.target;
+                switch (target.id) {
+                    case 'login-email':
+                        validateField('login-email', target.value, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, null, 'Email');
+                        break;
+                    case 'login-password':
+                        validateField('login-password', target.value, null, 8, 'Password');
+                        break;
+                }
+            });
+    
+            loginForm.addEventListener('submit', (event) => {
+                if (!validateLoginForm()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+    
+        
     
 </body>
 

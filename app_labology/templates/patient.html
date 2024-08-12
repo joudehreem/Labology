@@ -125,7 +125,7 @@
                     {% csrf_token %}
                 
                     <div class="form-floating mb-3">
-                    <select class="form-select" id="type_of_test" name="type_of_test">
+                    <select class="form-select" id="type_of_test" name="type_of_test" required>
                         <option value="" disabled selected>Select Test Types</option>
                         {% for test in tests %}
                         <option value="{{ test.id }}">{{ test.type_of_test }}</option>
@@ -152,7 +152,6 @@
                                 <th scope="col">Type of Test</th>
                                 <th scope="col">Test Result</th>
                                 <th scope="col">Normal Range</th>
-                                <th scope="col">Updated At</th>
                                 {% if provider.role.name == 'Lab Technician' %}
                                     <th scope="col">View</th>
                                         {% endif %}
@@ -166,7 +165,6 @@
                                     <td>{{ patient_test.test.type_of_test }}</td>
                                     <td>{{ patient_test.test_result }}</td>
                                     <td>{{ patient_test.test.normal_range }}</td>
-                                    <td>{{ test.updated_at }}</td>
                                 {% if provider.role.name == 'Lab Technician' %} <td>
                                     <a href="/update_test/{{patient.id}}/{{patient_test.id}}">View</a></td>
                                         {% endif %}

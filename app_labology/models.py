@@ -29,13 +29,43 @@ class UserManager(models.Manager):
     def basic_login(self, postData):# function for login 
             errors = {}
             try:
+                # Validate user provider and uniqe email
                 user = Provider.objects.get(email=postData['email'])
             except ObjectDoesNotExist:
                 errors['email'] = "Email not found."
                 return errors
+            # Validate to same pass for user
             if not bcrypt.checkpw(postData['password'].encode(), user.password.encode()):
                 errors['password'] = "Invalid password."
             return errors
+    def basic_patient(self, postData): # function for patient
+        errors = {}
+        # Validate First name
+        if len(postData['first_name']) < 2:
+            errors["first_name"] = "First Name should be at least 2 characters"
+        # Validate last name
+        if len(postData['last_name']) < 2:
+            errors["last_name"] = "Last Name should be at least 2 characters"
+        # Validate Mobile
+        if len(postData['mobile']) < 10:
+            errors["mobile"] = "Mobile should be at least 10 characters"
+        # Validate ID number
+        if len(postData['id_number']) < 10:
+            errors["id_number"] = "ID Number should be at least 10 characters"
+        if Patient.objects.filter(id_number=postData['id_number']).exists():
+            errors['id_number'] = "ID Number already in use!"
+        # Validate description
+        if len(postData['description']) < 20:
+            errors["description"] = "Description should be at least 20 characters"
+        # Validate gender
+        if 'gender' not in postData or postData['gender'] not in ['male', 'female']:
+            errors["gender"] = "Gender must be selected"
+
+
+
+        return errors
+
+
         
 class Role(models.Model):
     name = models.CharField(max_length=50)
@@ -146,7 +176,16 @@ def update_test(POST,id):
     patient_test = PatientTest.objects.get(id=id)
     patient_test.test_result = POST['test_result']
     patient_test.save()
-        
+
+def patient_update(POST,id):
+    patient = Patient.objects.get(id=id)
+    patient.first_name = POST['first_name']
+    patient.age = POST['age']
+    patient.mobile = POST['mobile']
+    patient.id_number = POST['id_number']
+    patient.gender = POST['gender']
+    patient.description = POST['description']
+    patient.save()
 
 def roles():
     return Role.objects.all()

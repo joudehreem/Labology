@@ -92,7 +92,7 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5 mt-4">
-            <h1 class="display-2 text-white mb-3 animated slideInDown">Registration Patient</h1>
+            <h1 class="display-2 text-white mb-3 animated slideInDown">Update Registration Patient</h1>
 
         </div>
     </div>
@@ -110,14 +110,14 @@
         {% endif %} -->
 <!-- Patient Registration Form -->
 <div class="col  text-center">
-    <h2 class="mb-4">New Patient</h2>
-    <form action="/register_patient/{{ patient.id }}" method="post">
+    <h2 class="mb-4">Update Patient</h2>
+    <form action="/update_patient/{{ patient.id }}" method="post">
         {% csrf_token %}
         <div class="row g-3">
             <!-- First Name -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control {% if errors.first_name %}is-invalid{% endif %}" id="first_name" placeholder="First Name" name="first_name" value="{{ POST.first_name }}">
+                    <input type="text" class="form-control" id="first_name" placeholder="First Name" name="first_name" value="{{ patient.first_name }}">
                     <label for="first_name">First Name</label>
                     {% if errors.first_name %}
                         <div class="invalid-feedback">
@@ -129,7 +129,7 @@
             <!-- Last Name -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control {% if errors.last_name %}is-invalid{% endif %}" id="last_name" placeholder="Last Name" name="last_name" value="{{ POST.last_name }}">
+                    <input type="text" class="form-control {% if errors.last_name %}is-invalid{% endif %}" id="last_name" placeholder="Last Name" name="last_name" value="{{ patient.last_name }}">
                     <label for="last_name">Last Name</label>
                     {% if errors.last_name %}
                         <div class="invalid-feedback">
@@ -141,7 +141,7 @@
             <!-- Phone -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="tel" class="form-control" id="mobile" placeholder="Mobile Number" name="mobile" value="{{ POST.mobile }}">
+                    <input type="tel" class="form-control" id="mobile" placeholder="Mobile Number" name="mobile" value="{{ patient.mobile }}">
                     <label for="mobile">Mobile Number</label>
                     {% if errors.mobile %}
                     <div class="invalid-feedback">
@@ -153,7 +153,7 @@
             <!-- ID -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control {% if errors.id_number %}is-invalid{% endif %}" id="id_number" placeholder="ID Number" name="id_number" value="{{ POST.id_number }}">
+                    <input type="text" class="form-control {% if errors.id_number %}is-invalid{% endif %}" id="id_number" placeholder="ID Number" name="id_number" value="{{ patient.id_number }}">
                     <label for="id_number">ID Number</label>
                     {% if errors.id_number %}
                         <div class="invalid-feedback">
@@ -165,7 +165,7 @@
             <!-- Description -->
             <div class="col-12">
                 <div class="form-floating mb-3">
-                    <textarea class="form-control {% if errors.description %}is-invalid{% endif %}" id="description" placeholder="Description" style="height: 100px;" name="description">{{ POST.description }}</textarea>
+                    <textarea class="form-control {% if errors.description %}is-invalid{% endif %}" id="description" placeholder="Description" style="height: 100px;" name="description">{{ patient.description }}</textarea>
                     <label for="description">Description</label>
                     {% if errors.description %}
                         <div class="invalid-feedback">
@@ -178,7 +178,7 @@
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
                     <select class="form-select {% if errors.gender %}is-invalid{% endif %}" id="gender" name="gender">
-                        <option value="" disabled {% if not POST.gender %}selected{% endif %}>Select Gender</option>
+                        <option value="{{patient.gender}}">{{patient.gender}}</option>
                         <option value="male" {% if POST.gender == 'male' %}selected{% endif %}>Male</option>
                         <option value="female" {% if POST.gender == 'female' %}selected{% endif %}>Female</option>
                     </select>
@@ -193,7 +193,7 @@
             <!-- Age -->
             <div class="col-sm-6">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="age" placeholder="Age" name="age" value="{{ POST.age }}">
+                    <input type="number" class="form-control" id="age" placeholder="Age" name="age" value="{{patient.age }}">
                     <label for="age">Age</label>
                 </div>
             </div>

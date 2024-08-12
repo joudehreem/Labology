@@ -9,22 +9,29 @@ from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
 from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
+
 
 # Create your views here.
 
+def index(request):
+  return render(request,'index.html')
+  
 # render to error handling page
 def error(request):
   return render(request,'404.html')
 
 #render about page
 def about(request):
-  if 'user_id' not in request.session:
-      return render(request,'about.html')
-  else:
-    context = {
-      'provider': get_user(request.session),
-  }
-  return render(request,'about.html',context)
+    if 'user_id' not in request.session:
+        return render(request,'about.html')
+    else:
+      context = {
+        'provider': get_user(request.session),
+    }
+    return render(request,'about.html',context)
+    
+
 
 # render to login and registration page and if user go to the login page clear session
 def home(request):
@@ -38,16 +45,26 @@ def home(request):
 #handel request POST to add user & validate
 def register_user(request):
     if request.method == 'POST':
-      errors = Provider.objects.basic_register(request.POST)
-    if len(errors) > 0:
-        for key, value in errors.items():   
-            messages.error(request, value)    
-        return redirect('/')
-    else:
-      create_user(request.POST)
-      messages.success(request, "Successfully Register")
+        # Call the method to validate and get errors
+        errors = Provider.objects.basic_register(request.POST)
+        
+        # Check if there are errors
+        if len(errors) > 0:
+            for key, value in errors.items():   
+                messages.error(request, value)  
+                
+            # Re-render the form with errors
+            return redirect('/')  # Redirect to the form page to display errors
 
-      return redirect('/')
+        # If no errors, create user
+        create_user(request.POST)
+        messages.success(request, "Successfully Registered")
+        
+        # Redirect to a success page or home
+        return redirect('/')
+
+    # Handle GET requests or if POST request fails
+    return render(request, '404.html')
     
 # handel request POST to login user and redirect to the main page
 def login_user(request):
@@ -66,22 +83,30 @@ def login_user(request):
         else:
             messages.error(request, "Invalid password.")
             return redirect('/')
-    return redirect('/1')
+    # return redirect('/1')
   
 # handel request POST to register user and redirect to the login page
 def register_patient(request):
-  if request.method == 'POST':
-    #   errors = Provider.objects.basic_register(request.POST)
-    # if len(errors) > 0:
-    #     for key, value in errors.items():   
-    #         messages.error(request, value)    
-    #     return redirect('/')
-    # else:
-      patient =create_patient(request.POST)  
-      provider = request.session.get('user_id')  
-      provider = Provider.objects.get(id=provider)
-      patient.episodes.add(provider)     
-      return redirect('/patients')
+    if request.method == 'POST':
+        errors = Provider.objects.basic_patient(request.POST)
+        if errors:
+            context={
+              'errors': errors, 
+              'POST': request.POST,        
+              'provider': get_user(request.session),
+            }
+            for key, value in errors.items():
+                messages.error(request, value)
+            return render(request, 'new_patient.html', context)
+        else:
+            patient = create_patient(request.POST)
+            provider = request.session.get('user_id')
+            provider = Provider.objects.get(id=provider)
+            patient.episodes.add(provider)
+            return redirect('/patients')
+    else:
+        return redirect('/new_patient')
+
   
 # render page to retrave for all patients data and  pagination in the page
 def all_patients(request):
@@ -105,24 +130,41 @@ def all_patients(request):
     return render(request,'all_patients.html',context)
 
 # page to view all details in patient profile and add test 
+
 def patient(request, id):
-  if 'user_id' not in request.session:
+    if 'user_id' not in request.session:
         return redirect('/')
-  else:
-    patient = get_patient(id)
-    patient_tests = PatientTest.objects.filter(patient=patient)
-    paginator = Paginator(patient_tests, 5)  # Show 5 tests per page
-    page_number = request.GET.get("page")  # Get current page number from request
-    page_obj = paginator.get_page(page_number)  # Get the tests for the current page
+    
+    try:
+        # Attempt to retrieve the patient object
+        patient = Patient.objects.get(id=id)
+    except ObjectDoesNotExist:
+        # If the patient is not found, redirect to page '/1'
+        return redirect('/1')
+    
+    try:
+        # Attempt to retrieve the patient's tests
+        patient_tests = PatientTest.objects.filter(patient=patient)
+    except Exception as e:
+        # If there's an error while retrieving tests, log it and redirect to page '/1'
+        print(f"An error occurred while retrieving tests: {e}")
+        return redirect('/1')
+    else:
+        patient = get_patient(id)
+        patient_tests = PatientTest.objects.filter(patient=patient)
+        paginator = Paginator(patient_tests, 5)  # Show 5 tests per page
+        page_number = request.GET.get("page")  # Get current page number from request
+        page_obj = paginator.get_page(page_number)  # Get the tests for the current page
+    # Prepare context for rendering
     context = {
         'patient': patient,
         'provider': get_user(request.session), 
         'page_obj': page_obj,
         'tests': tests(),   
         'tests_list':patient_tests
-        
     }
-  return render(request, 'patient.html', context)
+    
+    return render(request, 'patient.html', context)
 
 # edit patient's 
 def edit_patient(request, patient_id, test_id):
@@ -151,12 +193,25 @@ def new_patient(request):
         }
     return render(request,'new_patient.html',context)
 
+def update_new_patient(request,id):
+  if 'user_id' not in request.session:
+      return redirect('/')
+  else:
+    context={
+        'provider':get_user(request.session),
+        'patient':Patient.objects.get(id=id)
+        }
+    return render(request,'new_patient_update.html',context)
 
+def update_patient(request,id):
+  if request.method =='POST':
+    patient_update(request.POST,id)
+    return redirect('/patients')
+  
 
 #add test to the patient
 def add_test(request, id):
   if request.method == 'POST':
-    # patient=patient(id)
     create_test(request.POST,id)
     return redirect(f'/patient/{id}')
 
@@ -164,8 +219,7 @@ def add_test(request, id):
 def add_result(request,id):
   if request.method == 'POST':
     update_test(request.POST,id)
-    
-    return redirect(f'/patients')
+    return redirect('/patients')
 
 # clear the user seesion
 def logout(request):
