@@ -71,41 +71,42 @@ Labology integrates various features to enhance lab workflows and support better
 - **Interface Design:** 
   - Crafted for simplicity and ease of use, catering to both doctors and lab technicians.
 
-## Screenshots
-
-### About Us Page
-
-**Description:**
-The About Us Page offers information about the Labology project, including its goals, mission, and the team behind it. This page helps users understand the vision and objectives of the lab management system.
-
-![About Us Page](path/to/about-us-page-screenshot.png)
+## Screen Recordings
 
 ### Login and Register Page
 
 **Description:**
 The Login and Register Page is where users can access their accounts or create a new one. This page ensures secure access to the system, with fields for entering login credentials and options for new users to register.
 
-![Login and Register Page](path/to/login-register-page-screenshot.png)
+[**Login Page Video**](https://drive.google.com/file/d/1Q9fVYhnhSgr0LHW7irgYOtlwxiF3hdtL/view?usp=drive_link)
+
+[**Registration Page Video**](https://drive.google.com/file/d/1Lv_B5gch-q3jyZ2OFFgMa3rGnD0cTD7C/view?usp=drive_link)
 
 ### Add a New Patient and Update Information
 
 **Description:**
 The Add New Patient and Update Information Page allows users to input new patient details or update existing records. This page simplifies patient management and ensures that all information is accurately recorded and up-to-date.
 
-![Add New Patient and Update Information](path/to/add-update-patient-page-screenshot.png)
+[**Add or Update Patient Information Video**](https://drive.google.com/file/d/1ypgG8oHriRGajDEvsVcR3LovCoGBk61K/view?usp=drive_link)
 
 ### Add a Test to a Patient
 
 **Description:**
 The Add a Test Page allows users to add new tests for patients. Users can input details such as the test name, date ordered, result, and status. This feature ensures that all tests are accurately recorded and associated with the correct patient.
 
-![Add a Test to a Patient](path/to/add-test-page-screenshot.png)
+[**Add a Test Video**](https://drive.google.com/file/d/1YGLDjiGeEe9oGACsYoOkREFLTJ_Vq3rj/view?usp=drive_link)
 
 ### Search Functionality
 
 **Description:**
 The Search Functionality Page enables users to quickly find patient records, test results, and other relevant information. This feature is crucial for efficient data retrieval and management.
 
-![Search Functionality](path/to/search-functionality-screenshot.png)
+[**Search Functionality Video**](https://drive.google.com/file/d/11eB5C_Qn3XsVH3A7KhAj69Cxv338ekIL/view?usp=drive_link)
 
+### Admin Panel to Add a New Role and Test
+
+**Description:**
+The Admin Panel allows administrators to add new roles and tests within the system, providing flexibility in managing user permissions and test types.
+
+[**Admin Panel Video**](https://drive.google.com/file/d/1cxv3YVWwMGRJL0EUSqwymNO2ifZVwnPj/view?usp=drive_link)
 
